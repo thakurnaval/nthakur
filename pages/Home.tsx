@@ -9,31 +9,42 @@ const Home: React.FC = () => {
   return (
     <>
       {/* Hero Section */}
-      <div className="relative bg-primary text-white pt-24 pb-24 md:pt-32 md:pb-32 overflow-hidden">
-        <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
-        <div className="absolute top-0 right-0 -mt-20 -mr-20 w-96 h-96 bg-secondary rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-        <div className="absolute bottom-0 left-0 -mb-20 -ml-20 w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+      <div className="relative bg-slate-900 text-white pt-24 pb-24 md:pt-32 md:pb-32 overflow-hidden">
+        {/* Background Image & Overlay */}
+        <div className="absolute inset-0 z-0">
+          {/* 
+            Placeholder image from Unsplash (Tech/Network theme). 
+            Replace 'src' with your local asset e.g., "/assets/img/hero-bg.jpg" 
+          */}
+          <img 
+            src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop" 
+            alt="Background" 
+            className="w-full h-full object-cover opacity-70"
+          />
+          {/* Gradient overlay to ensure text readability while maintaining image visibility */}
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/60 to-slate-950/30"></div>
+        </div>
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="flex flex-col md:flex-row items-center justify-between gap-12">
             <div className="md:w-1/2 space-y-6">
-              <div className="inline-block px-4 py-1.5 rounded-full border border-slate-700 bg-slate-800/50 backdrop-blur-sm text-sm font-medium text-highlight">
+              <div className="inline-block px-4 py-1.5 rounded-full border border-slate-500 bg-slate-800/50 backdrop-blur-sm text-sm font-medium text-highlight">
                 Technologist & Transformation Coach
               </div>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-white shadow-sm">
                 Naval Thakur
               </h1>
-              <h2 className="text-xl md:text-2xl text-slate-100 font-medium leading-normal">
+              <h2 className="text-xl md:text-2xl text-slate-100 font-medium leading-normal drop-shadow-md">
                 DevOps <span className="text-highlight">•</span> SecOps <span className="text-highlight">•</span> FinOps <span className="text-highlight">•</span> GenAI <span className="text-highlight">•</span> Architecture
               </h2>
-              <p className="text-lg text-slate-200 max-w-xl leading-relaxed">
+              <p className="text-lg text-slate-100 max-w-xl leading-relaxed drop-shadow-md">
                 Empowering enterprises with 18+ years of expertise in DevSecOps, SRE, CloudOps, and AIOps leadership. Bridging the gap between technology, operations, and business value.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
                 <Link to="/contact" className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-bold rounded-md text-primary bg-secondary hover:bg-secondary-hover transition-all shadow-lg hover:shadow-secondary/25">
                   Book a Talk / Workshop
                 </Link>
-                <Link to="/devops" className="inline-flex items-center justify-center px-6 py-3 border border-slate-600 text-base font-medium rounded-md text-slate-300 hover:bg-slate-800 hover:text-white transition-all">
+                <Link to="/devops" className="inline-flex items-center justify-center px-6 py-3 border border-white/30 bg-white/10 backdrop-blur-sm text-base font-medium rounded-md text-white hover:bg-white/20 transition-all">
                   Explore Expertise
                 </Link>
               </div>
@@ -46,7 +57,7 @@ const Home: React.FC = () => {
                   srcSet="https://picsum.photos/256/256?grayscale 256w, https://picsum.photos/320/320?grayscale 320w, https://picsum.photos/400/400?grayscale 400w, https://picsum.photos/640/640?grayscale 640w"
                   sizes="(max-width: 768px) 256px, 320px"
                   alt="Naval Thakur"
-                  className="relative w-64 h-64 md:w-80 md:h-80 rounded-full border-4 border-slate-800 shadow-2xl object-cover grayscale hover:grayscale-0 transition-all duration-500"
+                  className="relative w-64 h-64 md:w-80 md:h-80 rounded-full border-4 border-slate-800/50 shadow-2xl object-cover grayscale hover:grayscale-0 transition-all duration-500"
                   width="320"
                   height="320"
                   loading="eager"
@@ -102,7 +113,7 @@ const Home: React.FC = () => {
                 { text: 'Leadership Coaching & Mentoring', icon: Users },
               ].map((prop, idx) => (
                 <div key={idx} className="flex items-start">
-                  <prop.icon className="w-5 h-5 text-secondary mt-1 mr-3 flex-shrink-0" />
+                  <prop.icon className="w-5 h-5 text-primary dark:text-secondary mt-1 mr-3 flex-shrink-0" />
                   <span className="text-slate-700 dark:text-slate-300 font-medium">{prop.text}</span>
                 </div>
               ))}
@@ -118,21 +129,21 @@ const Home: React.FC = () => {
             <div className="absolute bottom-0 left-0 -ml-4 -mb-4 w-32 h-32 bg-primary/5 rounded-full"></div>
             <div className="relative bg-slate-50 dark:bg-slate-900 p-8 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-lg">
               <div className="flex items-start space-x-4 mb-6">
-                <Lightbulb className="w-8 h-8 text-secondary" />
+                <Lightbulb className="w-8 h-8 text-primary dark:text-secondary" />
                 <div>
                   <h4 className="font-bold text-slate-900 dark:text-white text-lg">Thought Leadership</h4>
                   <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">Regular speaker at international conferences and author of technical deep-dives.</p>
                 </div>
               </div>
               <div className="flex items-start space-x-4 mb-6">
-                <Cpu className="w-8 h-8 text-secondary" />
+                <Cpu className="w-8 h-8 text-primary dark:text-secondary" />
                 <div>
                   <h4 className="font-bold text-slate-900 dark:text-white text-lg">Technical & Strategic</h4>
                   <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">Able to bridge the gap between C-suite strategy and engineering execution.</p>
                 </div>
               </div>
               <div className="flex items-start space-x-4">
-                <Users className="w-8 h-8 text-secondary" />
+                <Users className="w-8 h-8 text-primary dark:text-secondary" />
                 <div>
                   <h4 className="font-bold text-slate-900 dark:text-white text-lg">Community Builder</h4>
                   <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">Active mentor and coach for the next generation of DevOps engineers.</p>
