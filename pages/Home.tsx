@@ -53,20 +53,15 @@ const Home: React.FC = () => {
               <div className="relative">
                 <div className="absolute inset-0 bg-secondary rounded-full blur-2xl opacity-20"></div>
                 {/* 
-                   UPDATE: Replace 'src' below with your actual photo path.
-                   Make sure to put your photo in public/assets/img/profile.png 
+                   Direct link to the file. Ensure file is in public/assets/img/profile.png
                 */}
                 <img
                   src="/assets/img/profile.png"
                   alt="Naval Thakur"
-                  className="relative w-64 h-64 md:w-80 md:h-80 rounded-full border-4 border-slate-800/50 shadow-2xl object-cover grayscale hover:grayscale-0 transition-all duration-500"
+                  className="relative w-64 h-64 md:w-80 md:h-80 rounded-full border-4 border-slate-800/50 shadow-2xl object-cover transition-all duration-500 hover:scale-105 bg-slate-800"
                   width="320"
                   height="320"
                   loading="eager"
-                  onError={(e) => {
-                    // Fallback to placeholder if local image is missing
-                    e.currentTarget.src = "https://picsum.photos/400/400?grayscale";
-                  }}
                 />
               </div>
             </div>

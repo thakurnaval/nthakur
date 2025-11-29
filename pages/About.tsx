@@ -18,12 +18,13 @@ const About: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
            <div className="md:col-span-1">
              <div className="sticky top-24">
+               {/* 
+                  Updated to use local image hardcoded to profile.png
+               */}
                <img 
-                 src="https://picsum.photos/400/500?grayscale" 
-                 srcSet="https://picsum.photos/300/375?grayscale 300w, https://picsum.photos/400/500?grayscale 400w, https://picsum.photos/600/750?grayscale 600w"
-                 sizes="(max-width: 768px) 100vw, 33vw"
+                 src="/assets/img/profile.png"
                  alt="Naval Thakur" 
-                 className="rounded-xl shadow-lg mb-6 w-full object-cover" 
+                 className="rounded-xl shadow-lg mb-6 w-full object-cover bg-slate-200 dark:bg-slate-800" 
                  width="400"
                  height="500"
                  loading="eager"
