@@ -52,15 +52,21 @@ const Home: React.FC = () => {
             <div className="md:w-1/2 flex justify-center">
               <div className="relative">
                 <div className="absolute inset-0 bg-secondary rounded-full blur-2xl opacity-20"></div>
+                {/* 
+                   UPDATE: Replace 'src' below with your actual photo path.
+                   Make sure to put your photo in public/assets/img/profile.png 
+                */}
                 <img
-                  src="https://picsum.photos/400/400?grayscale"
-                  srcSet="https://picsum.photos/256/256?grayscale 256w, https://picsum.photos/320/320?grayscale 320w, https://picsum.photos/400/400?grayscale 400w, https://picsum.photos/640/640?grayscale 640w"
-                  sizes="(max-width: 768px) 256px, 320px"
+                  src="/assets/img/profile.png"
                   alt="Naval Thakur"
                   className="relative w-64 h-64 md:w-80 md:h-80 rounded-full border-4 border-slate-800/50 shadow-2xl object-cover grayscale hover:grayscale-0 transition-all duration-500"
                   width="320"
                   height="320"
                   loading="eager"
+                  onError={(e) => {
+                    // Fallback to placeholder if local image is missing
+                    e.currentTarget.src = "https://picsum.photos/400/400?grayscale";
+                  }}
                 />
               </div>
             </div>
