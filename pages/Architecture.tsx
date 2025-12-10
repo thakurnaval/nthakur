@@ -34,21 +34,21 @@ const Architecture: React.FC = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-               <div className="bg-white dark:bg-slate-800 p-6 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm hover:border-secondary transition-colors">
-                 <Layers className="w-8 h-8 text-secondary mb-4" />
-                 <h3 className="text-xl font-bold text-primary dark:text-white mb-2">Microservices & Modularity</h3>
+               <Link to="/architecture/microservices" className="bg-white dark:bg-slate-800 p-6 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm hover:border-secondary transition-colors group">
+                 <Layers className="w-8 h-8 text-secondary mb-4 group-hover:scale-110 transition-transform" />
+                 <h3 className="text-xl font-bold text-primary dark:text-white mb-2 group-hover:text-secondary">Microservices & Modularity</h3>
                  <p className="text-slate-600 dark:text-slate-400">
                    Decomposing complex domains into loosely coupled, independently deployable services using Domain-Driven Design (DDD).
                  </p>
-               </div>
+               </Link>
                
-               <div className="bg-white dark:bg-slate-800 p-6 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm hover:border-secondary transition-colors">
-                 <Network className="w-8 h-8 text-secondary mb-4" />
-                 <h3 className="text-xl font-bold text-primary dark:text-white mb-2">Event-Driven Design</h3>
+               <Link to="/architecture/cloud-architecture" className="bg-white dark:bg-slate-800 p-6 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm hover:border-secondary transition-colors group">
+                 <Network className="w-8 h-8 text-secondary mb-4 group-hover:scale-110 transition-transform" />
+                 <h3 className="text-xl font-bold text-primary dark:text-white mb-2 group-hover:text-secondary">Event-Driven Design</h3>
                  <p className="text-slate-600 dark:text-slate-400">
                    Building reactive systems that scale using asynchronous messaging patterns, Kafka, and EventBridge.
                  </p>
-               </div>
+               </Link>
 
                <div className="bg-white dark:bg-slate-800 p-6 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm hover:border-secondary transition-colors">
                  <Server className="w-8 h-8 text-secondary mb-4" />
@@ -58,13 +58,13 @@ const Architecture: React.FC = () => {
                  </p>
                </div>
 
-               <div className="bg-white dark:bg-slate-800 p-6 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm hover:border-secondary transition-colors">
-                 <Database className="w-8 h-8 text-secondary mb-4" />
-                 <h3 className="text-xl font-bold text-primary dark:text-white mb-2">Data Persistence Strategy</h3>
+               <Link to="/architecture/data-architecture" className="bg-white dark:bg-slate-800 p-6 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm hover:border-secondary transition-colors group">
+                 <Database className="w-8 h-8 text-secondary mb-4 group-hover:scale-110 transition-transform" />
+                 <h3 className="text-xl font-bold text-primary dark:text-white mb-2 group-hover:text-secondary">Data Persistence Strategy</h3>
                  <p className="text-slate-600 dark:text-slate-400">
                    Choosing the right tool for the job: Polyglot persistence, caching strategies, and eventual consistency models.
                  </p>
-               </div>
+               </Link>
             </div>
 
             <div>
@@ -86,6 +86,16 @@ const Architecture: React.FC = () => {
                  ))}
                </ul>
             </div>
+            
+            <div className="pt-4">
+               <h2 className="text-2xl font-bold text-primary dark:text-white mb-4">Reference Patterns</h2>
+               <div className="flex flex-wrap gap-3">
+                 <Link to="/architecture/design-patterns" className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-sm text-primary dark:text-slate-300 hover:bg-secondary hover:text-white transition-colors">Design Patterns</Link>
+                 <Link to="/architecture/solid-principles" className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-sm text-primary dark:text-slate-300 hover:bg-secondary hover:text-white transition-colors">SOLID Principles</Link>
+                 <Link to="/architecture/system-design-process" className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-sm text-primary dark:text-slate-300 hover:bg-secondary hover:text-white transition-colors">System Design Process</Link>
+                 <Link to="/architecture/api-design" className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-sm text-primary dark:text-slate-300 hover:bg-secondary hover:text-white transition-colors">API Design</Link>
+               </div>
+            </div>
           </div>
 
           <div className="lg:col-span-1">
@@ -94,7 +104,7 @@ const Architecture: React.FC = () => {
                <p className="text-slate-600 dark:text-slate-400 mb-6 text-sm">
                  Whether you are launching a startup or modernizing a legacy enterprise system, a solid architectural foundation is key.
                </p>
-               <Link to="/contact" className="block w-full py-3 bg-secondary text-primary text-center font-bold rounded hover:bg-secondary-hover transition-colors mb-4">
+               <Link to="/contact?topic=Consulting" className="block w-full py-3 bg-secondary text-primary text-center font-bold rounded hover:bg-secondary-hover transition-colors mb-4">
                  Book an Architecture Review
                </Link>
                

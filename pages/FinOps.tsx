@@ -10,7 +10,7 @@ const FinOps: React.FC = () => {
   return (
     <>
       <SEO 
-        title="FinOps & Cloud Cost Optimization | Reduce Cloud Spend"
+        title="FinOps Consulting & Cloud Cost Optimization Services"
         description="Maximize business value from cloud. Cost visibility, forecasting, and rate optimization strategies for AWS, Azure, and GCP."
       />
       <div className="bg-primary text-white py-20">
@@ -61,14 +61,14 @@ const FinOps: React.FC = () => {
               <h2 className="text-2xl font-bold text-primary dark:text-white mb-4">Key Principles</h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                  {[
-                   { title: 'Inform', desc: 'Visibility & Allocation. You cannot fix what you cannot see.' },
-                   { title: 'Optimize', desc: 'Rate & Usage reduction. Rightsizing and Reserved Instances.' },
-                   { title: 'Operate', desc: 'Continuous improvement & automation of cost policies.' }
+                   { title: 'Inform', desc: 'Visibility & Allocation. You cannot fix what you cannot see.', link: '/finops/cost-visibility' },
+                   { title: 'Optimize', desc: 'Rate & Usage reduction. Rightsizing and Reserved Instances.', link: '/finops/optimization' },
+                   { title: 'Operate', desc: 'Continuous improvement & automation of cost policies.', link: '/finops/culture' }
                  ].map((p, i) => (
-                   <div key={i} className="bg-slate-50 dark:bg-slate-800 p-4 rounded-lg border border-transparent dark:border-slate-700">
-                     <div className="font-bold text-primary dark:text-secondary mb-1">{p.title}</div>
+                   <Link key={i} to={p.link} className="bg-slate-50 dark:bg-slate-800 p-4 rounded-lg border border-transparent dark:border-slate-700 hover:border-secondary transition-colors group">
+                     <div className="font-bold text-primary dark:text-secondary mb-1 group-hover:underline">{p.title}</div>
                      <div className="text-sm text-slate-600 dark:text-slate-400">{p.desc}</div>
-                   </div>
+                   </Link>
                  ))}
               </div>
             </div>
@@ -76,8 +76,17 @@ const FinOps: React.FC = () => {
             <div>
               <h2 className="text-2xl font-bold text-primary dark:text-white mb-4">GenAI in FinOps</h2>
               <p className="text-slate-600 dark:text-slate-300">
-                Leveraging Generative AI to analyze billing data, forecast anomalies, and suggest architectural changes for cost efficiency.
+                Leveraging Generative AI to analyze billing data, <Link to="/finops/forecasting" className="text-secondary hover:underline">forecast anomalies</Link>, and suggest architectural changes for cost efficiency.
               </p>
+            </div>
+            
+            <div className="pt-4">
+              <h2 className="text-2xl font-bold text-primary dark:text-white mb-4">Explore More</h2>
+              <div className="flex flex-wrap gap-3">
+                <Link to="/finops/unit-economics" className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-sm text-primary dark:text-slate-300 hover:bg-secondary hover:text-white transition-colors">Unit Economics</Link>
+                <Link to="/finops/forecasting" className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-sm text-primary dark:text-slate-300 hover:bg-secondary hover:text-white transition-colors">Forecasting & Budgeting</Link>
+                <Link to="/finops/framework" className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-sm text-primary dark:text-slate-300 hover:bg-secondary hover:text-white transition-colors">FinOps Framework</Link>
+              </div>
             </div>
           </div>
 
@@ -88,7 +97,7 @@ const FinOps: React.FC = () => {
                  Naval helps teams prepare for the FinOps Certified Practitioner exam and build their Cloud Center of Excellence (CCoE).
                </p>
                <div className="space-y-3">
-                 <Link to="/contact" className="block w-full py-3 bg-secondary text-primary text-center font-bold rounded hover:bg-secondary-hover transition-colors">
+                 <Link to="/contact?topic=Workshop / Training" className="block w-full py-3 bg-secondary text-primary text-center font-bold rounded hover:bg-secondary-hover transition-colors">
                    Request Strategy Workshop
                  </Link>
                  <Link to="/articles" className="block w-full py-3 bg-white dark:bg-slate-800 border border-secondary text-primary dark:text-white text-center font-bold rounded hover:bg-secondary/10 transition-colors">

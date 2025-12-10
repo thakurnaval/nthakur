@@ -1,20 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Mail, MapPin, Send, CheckCircle, Loader2, AlertCircle } from 'lucide-react';
 import Section from '../components/Section';
 import SEO from '../components/SEO';
 
 const Contact: React.FC = () => {
+  const location = useLocation();
   // PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL HERE
   const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwvGjTnvaJzG5RGaOZyIUK0iPNRhrD1DMG-1rRri0N5xhkEnv1FVNOjc_-kMZRcRlnIsw/exec';
 
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    topic: 'Workshop',
+    phone: '',
+    topic: 'Workshop / Training',
     message: ''
   });
 
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+
+  // Auto-select topic based on query parameter
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const topicParam = searchParams.get('topic');
+    if (topicParam) {
+      setFormData(prev => ({ ...prev, topic: topicParam }));
+    }
+  }, [location]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,6 +39,7 @@ const Contact: React.FC = () => {
       const form = new FormData();
       form.append('name', formData.name);
       form.append('email', formData.email);
+      form.append('phone', formData.phone);
       form.append('topic', formData.topic);
       form.append('message', formData.message);
 
@@ -40,7 +53,7 @@ const Contact: React.FC = () => {
       });
 
       setStatus('success');
-      setFormData({ name: '', email: '', topic: 'Workshop', message: '' });
+      setFormData({ name: '', email: '', phone: '', topic: 'Workshop / Training', message: '' });
     } catch (error) {
       console.error('Error submitting form', error);
       setStatus('error');
@@ -145,19 +158,37 @@ const Contact: React.FC = () => {
                       className="w-full px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-secondary focus:border-transparent outline-none transition-all disabled:opacity-50"
                     />
                   </div>
-                  <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Email Address</label>
-                    <input 
-                      type="email" 
-                      id="email" 
-                      name="email" 
-                      required
-                      value={formData.email}
-                      onChange={handleChange}
-                      disabled={status === 'submitting'}
-                      className="w-full px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-secondary focus:border-transparent outline-none transition-all disabled:opacity-50"
-                    />
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <label htmlFor="email" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Email Address</label>
+                      <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        required
+                        value={formData.email}
+                        onChange={handleChange}
+                        disabled={status === 'submitting'}
+                        className="w-full px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-secondary focus:border-transparent outline-none transition-all disabled:opacity-50"
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="phone" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+                        Phone Number <span className="text-slate-400 font-normal text-xs">(Optional)</span>
+                      </label>
+                      <input 
+                        type="tel" 
+                        id="phone" 
+                        name="phone" 
+                        value={formData.phone}
+                        onChange={handleChange}
+                        disabled={status === 'submitting'}
+                        className="w-full px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-secondary focus:border-transparent outline-none transition-all disabled:opacity-50"
+                      />
+                    </div>
                   </div>
+
                   <div>
                     <label htmlFor="topic" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Topic</label>
                     <select 

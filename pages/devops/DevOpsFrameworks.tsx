@@ -7,7 +7,7 @@ const DevOpsFrameworks: React.FC = () => {
       title="DevOps Frameworks" 
       subtitle="Guiding principles to structure your transformation journey."
     >
-      <h3 className="text-2xl font-bold text-primary dark:text-white mb-4">The Three Ways</h3>
+      <h2 className="text-2xl font-bold text-primary dark:text-white mb-4">The Three Ways</h2>
       <p>
         Popularized by "The Phoenix Project" and "The DevOps Handbook", these are the underpinning principles of DevOps:
       </p>
@@ -17,7 +17,7 @@ const DevOpsFrameworks: React.FC = () => {
         <li><strong>Continuous Learning & Experimentation:</strong> Creating a culture that fosters risk-taking and learning from failure.</li>
       </ul>
 
-      <h3 className="text-2xl font-bold text-primary dark:text-white mb-4">CALMS Framework</h3>
+      <h2 className="text-2xl font-bold text-primary dark:text-white mb-4">CALMS Framework</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {[
           { l: 'C', t: 'Culture', d: 'Focus on people and process, not just tools.' },
@@ -29,7 +29,7 @@ const DevOpsFrameworks: React.FC = () => {
           <div key={i} className="flex items-start p-4 bg-white dark:bg-slate-800 rounded border border-slate-200 dark:border-slate-700">
             <span className="text-2xl font-bold text-primary dark:text-secondary mr-3">{item.l}</span>
             <div>
-              <h4 className="font-bold text-primary dark:text-white">{item.t}</h4>
+              <h3 className="font-bold text-primary dark:text-white">{item.t}</h3>
               <p className="text-sm text-slate-600 dark:text-slate-400">{item.d}</p>
             </div>
           </div>

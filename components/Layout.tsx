@@ -1,12 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation, Link } from 'react-router-dom';
-import { Menu, X, Linkedin, Github, MonitorPlay, Moon, Sun, ChevronDown, Twitter, Youtube } from 'lucide-react';
-import { NAV_ITEMS } from '../constants';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
+import { useLocation, Link, useNavigate } from 'react-router-dom';
+import { Menu, X, Linkedin, Github, Moon, Sun, ChevronDown, Twitter, Youtube, Search, ArrowRight, FileText, Hash } from 'lucide-react';
+import { NAV_ITEMS, FEATURED_ARTICLES } from '../constants';
 import { NavItem } from '../types';
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  
   const location = useLocation();
+  const navigate = useNavigate();
 
   // Theme State
   const [theme, setTheme] = useState(() => {
@@ -33,11 +38,85 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     setTheme(prev => prev === 'dark' ? 'light' : 'dark');
   };
 
-  // Close mobile menu on route change
+  // Close menus on route change
   useEffect(() => {
     setIsMenuOpen(false);
+    setIsSearchOpen(false);
     window.scrollTo(0, 0);
   }, [location]);
+
+  // Focus input when search opens
+  useEffect(() => {
+    if (isSearchOpen) {
+      setTimeout(() => {
+        searchInputRef.current?.focus();
+      }, 100);
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+      setSearchQuery('');
+    }
+    
+    // Keyboard shortcut (Cmd/Ctrl + K) to open search
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        setIsSearchOpen(true);
+      }
+      if (e.key === 'Escape') {
+        setIsSearchOpen(false);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isSearchOpen]);
+
+  // Flatten Navigation Items for Search
+  const searchableItems = useMemo(() => {
+    const items: { label: string; path: string; type: 'Page' | 'Article'; category?: string }[] = [];
+
+    // Helper to traverse nav items
+    const traverse = (nodes: NavItem[], category?: string) => {
+      nodes.forEach(node => {
+        if (node.path) {
+          items.push({ 
+            label: node.label, 
+            path: node.path, 
+            type: 'Page',
+            category: category || 'General' 
+          });
+        }
+        if (node.children) {
+          traverse(node.children, node.label); // Pass parent label as category
+        }
+      });
+    };
+
+    traverse(NAV_ITEMS);
+
+    // Add Articles
+    FEATURED_ARTICLES.forEach(article => {
+      items.push({
+        label: article.title,
+        path: '/articles', // Redirect to articles page for now
+        type: 'Article',
+        category: article.tag
+      });
+    });
+
+    return items;
+  }, []);
+
+  // Filter items based on query
+  const filteredItems = useMemo(() => {
+    if (!searchQuery.trim()) return [];
+    const query = searchQuery.toLowerCase();
+    return searchableItems.filter(item => 
+      item.label.toLowerCase().includes(query) || 
+      item.category?.toLowerCase().includes(query)
+    ).slice(0, 8); // Limit to 8 results
+  }, [searchQuery, searchableItems]);
 
   const isActive = (path?: string) => path && location.pathname === path;
   
@@ -47,6 +126,78 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
   return (
     <div className="flex flex-col min-h-screen font-sans text-slate-800 dark:text-slate-100 bg-white dark:bg-slate-950 transition-colors duration-300">
+      
+      {/* Search Overlay/Modal */}
+      {isSearchOpen && (
+        <div className="fixed inset-0 z-[60] flex items-start justify-center pt-20 px-4">
+          {/* Backdrop */}
+          <div 
+            className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity" 
+            onClick={() => setIsSearchOpen(false)}
+          ></div>
+          
+          {/* Modal */}
+          <div className="relative w-full max-w-2xl bg-white dark:bg-slate-900 rounded-xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden animate-in fade-in slide-in-from-top-4 duration-200">
+            <div className="flex items-center px-4 py-3 border-b border-slate-100 dark:border-slate-800">
+              <Search className="w-5 h-5 text-slate-400 mr-3" />
+              <input
+                ref={searchInputRef}
+                type="text"
+                className="flex-grow bg-transparent text-lg text-slate-900 dark:text-white placeholder-slate-400 outline-none"
+                placeholder="Search pages, articles, or topics..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+              <button 
+                onClick={() => setIsSearchOpen(false)}
+                className="p-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 text-xs font-medium uppercase px-2"
+              >
+                ESC
+              </button>
+            </div>
+            
+            <div className="max-h-[60vh] overflow-y-auto">
+              {searchQuery === '' ? (
+                <div className="p-8 text-center text-slate-500 dark:text-slate-400">
+                  <p className="text-sm">Type to search across pages and insights.</p>
+                </div>
+              ) : filteredItems.length > 0 ? (
+                <div className="py-2">
+                  <div className="px-4 py-2 text-xs font-semibold text-slate-400 uppercase tracking-wider">Results</div>
+                  {filteredItems.map((item, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => {
+                        navigate(item.path);
+                        setIsSearchOpen(false);
+                      }}
+                      className="w-full text-left px-4 py-3 flex items-center hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors group"
+                    >
+                      <div className={`p-2 rounded-lg mr-4 ${item.type === 'Article' ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' : 'bg-slate-100 dark:bg-slate-800 text-slate-500'}`}>
+                        {item.type === 'Article' ? <FileText size={18} /> : <Hash size={18} />}
+                      </div>
+                      <div>
+                        <div className="font-medium text-slate-900 dark:text-white group-hover:text-primary dark:group-hover:text-secondary">
+                          {item.label}
+                        </div>
+                        <div className="text-xs text-slate-500 flex items-center">
+                          {item.type} • {item.category}
+                        </div>
+                      </div>
+                      <ArrowRight size={16} className="ml-auto text-slate-300 group-hover:text-primary dark:group-hover:text-secondary opacity-0 group-hover:opacity-100 transition-all" />
+                    </button>
+                  ))}
+                </div>
+              ) : (
+                <div className="p-8 text-center text-slate-500 dark:text-slate-400">
+                  <p>No results found for "{searchQuery}"</p>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Navigation */}
       <header className="sticky top-0 z-50 bg-white/95 dark:bg-slate-950/95 backdrop-blur-sm border-b border-slate-200 dark:border-slate-800 shadow-sm transition-all duration-300">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -119,18 +270,39 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                   </div>
                 ))}
               </nav>
-              {/* Theme Toggle (Desktop) */}
-              <button
-                onClick={toggleTheme}
-                className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-primary dark:text-slate-300 transition-colors"
-                aria-label="Toggle Dark Mode"
-              >
-                {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
-              </button>
+              
+              <div className="flex items-center gap-2 pl-4 border-l border-slate-200 dark:border-slate-700">
+                {/* Search Button (Desktop) */}
+                <button
+                  onClick={() => setIsSearchOpen(true)}
+                  className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-primary dark:text-slate-300 transition-colors"
+                  aria-label="Search"
+                >
+                  <Search size={20} />
+                </button>
+
+                {/* Theme Toggle (Desktop) */}
+                <button
+                  onClick={toggleTheme}
+                  className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-primary dark:text-slate-300 transition-colors"
+                  aria-label="Toggle Dark Mode"
+                >
+                  {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+                </button>
+              </div>
             </div>
 
             {/* Mobile Controls */}
-            <div className="xl:hidden flex items-center gap-4">
+            <div className="xl:hidden flex items-center gap-2">
+              {/* Search Button (Mobile) */}
+              <button
+                onClick={() => setIsSearchOpen(true)}
+                className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-primary dark:text-slate-300 transition-colors"
+                aria-label="Search"
+              >
+                <Search size={20} />
+              </button>
+
               <button
                 onClick={toggleTheme}
                 className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-primary dark:text-slate-300 transition-colors"

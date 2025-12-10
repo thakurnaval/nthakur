@@ -29,22 +29,22 @@ const DevOps: React.FC = () => {
                 DevOps is not just Jenkins pipelines or Kubernetes clusters. It is a fundamental shift in how organizations build, deliver, and run software. It breaks down the silos between Development and Operations, fostering a culture of shared responsibility.
               </p>
               <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-                By implementing CI/CD, Infrastructure as Code (IaC), and automated testing, we reduce the "fear of release" and enable businesses to respond to market changes instantly.
+                By implementing <Link to="/devops/practices" className="text-secondary hover:underline font-medium">CI/CD</Link>, <Link to="/devops/tools" className="text-secondary hover:underline font-medium">Infrastructure as Code (IaC)</Link>, and automated testing, we reduce the "fear of release" and enable businesses to respond to market changes instantly.
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
               {[
-                { icon: RefreshCw, title: 'Automation', desc: 'Eliminate toil with CI/CD and IaC.' },
-                { icon: GitMerge, title: 'Collaboration', desc: 'Unified goals for Dev and Ops.' },
-                { icon: BarChart2, title: 'Monitoring', desc: 'Proactive observability loops.' },
-                { icon: Settings, title: 'Process', desc: 'Agile methodologies applied to Ops.' },
+                { icon: RefreshCw, title: 'Automation', desc: 'Eliminate toil with CI/CD and IaC.', link: '/devops/tools' },
+                { icon: GitMerge, title: 'Collaboration', desc: 'Unified goals for Dev and Ops.', link: '/devops/practices' },
+                { icon: BarChart2, title: 'Monitoring', desc: 'Proactive observability loops.', link: '/devops/sre' },
+                { icon: Settings, title: 'Process', desc: 'Agile methodologies applied to Ops.', link: '/devops/maturity' },
               ].map((item, idx) => (
-                <div key={idx} className="bg-slate-50 dark:bg-slate-800 p-6 rounded-lg border border-slate-100 dark:border-slate-700">
-                  <item.icon className="w-8 h-8 text-secondary mb-3" />
-                  <h3 className="font-bold text-primary dark:text-white mb-1">{item.title}</h3>
+                <Link key={idx} to={item.link} className="bg-slate-50 dark:bg-slate-800 p-6 rounded-lg border border-slate-100 dark:border-slate-700 hover:border-secondary transition-colors group">
+                  <item.icon className="w-8 h-8 text-secondary mb-3 group-hover:scale-110 transition-transform" />
+                  <h3 className="font-bold text-primary dark:text-white mb-1 group-hover:text-secondary">{item.title}</h3>
                   <p className="text-sm text-slate-600 dark:text-slate-400">{item.desc}</p>
-                </div>
+                </Link>
               ))}
             </div>
 
@@ -66,13 +66,22 @@ const DevOps: React.FC = () => {
             </div>
 
             <div className="bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-500 p-6 rounded-r-lg mt-8">
-              <h3 className="text-xl font-bold text-blue-900 dark:text-blue-200 mb-2">DevOps Maturity Assessment</h3>
+              <h2 className="text-xl font-bold text-blue-900 dark:text-blue-200 mb-2">DevOps Maturity Assessment</h2>
               <p className="text-blue-800 dark:text-blue-300 mb-4">
                 Are you "Doing DevOps" or just using tools? My structured decision-tree assessment helps identify where your organization stands on the maturity curve—from "Ad-hoc" to "Optimized".
               </p>
-              <Link to="/contact" className="text-blue-700 dark:text-blue-400 font-bold hover:underline">
+              <Link to="/contact?topic=Consulting" className="text-blue-700 dark:text-blue-400 font-bold hover:underline">
                 Request an Assessment Session &rarr;
               </Link>
+            </div>
+            
+            <div className="pt-8">
+              <h2 className="text-2xl font-bold text-primary dark:text-white mb-4">Related Topics</h2>
+              <div className="flex flex-wrap gap-3">
+                <Link to="/devops/sre" className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-sm text-primary dark:text-slate-300 hover:bg-secondary hover:text-white transition-colors">Site Reliability Engineering</Link>
+                <Link to="/devops/platform-engineering" className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-sm text-primary dark:text-slate-300 hover:bg-secondary hover:text-white transition-colors">Platform Engineering</Link>
+                <Link to="/devops/chaos-engineering" className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-sm text-primary dark:text-slate-300 hover:bg-secondary hover:text-white transition-colors">Chaos Engineering</Link>
+              </div>
             </div>
           </div>
 
@@ -82,7 +91,7 @@ const DevOps: React.FC = () => {
                <p className="text-slate-600 dark:text-slate-400 mb-6 text-sm">
                  Need help setting up your pipeline or training your team?
                </p>
-               <Link to="/contact" className="block w-full py-3 bg-secondary text-primary text-center font-bold rounded hover:bg-secondary-hover transition-colors mb-4">
+               <Link to="/contact?topic=Consulting" className="block w-full py-3 bg-secondary text-primary text-center font-bold rounded hover:bg-secondary-hover transition-colors mb-4">
                  Book a Consultation
                </Link>
                <div className="border-t border-slate-100 dark:border-slate-700 pt-4 mt-4">

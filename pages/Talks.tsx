@@ -158,7 +158,7 @@ Email: contact@nthakur.com
                
                <div className="text-center">
                  <p className="text-xs text-slate-400 uppercase tracking-wide font-bold mb-2">Book for your event</p>
-                 <Link to="/contact" className="block w-full py-3 bg-secondary text-primary font-bold rounded hover:bg-secondary-hover transition-colors">
+                 <Link to="/contact?topic=Speaking Engagement" className="block w-full py-3 bg-secondary text-primary font-bold rounded hover:bg-secondary-hover transition-colors">
                    Contact Naval
                  </Link>
                </div>
