@@ -55,7 +55,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
             <Link to="/" className="flex items-center gap-3 group">
               <img 
                 src="/assets/img/logo.png" 
-                alt="DevOpsism" 
+                alt="Naval Thakur Logo" 
                 className="w-10 h-10 md:w-12 md:h-12 rounded-full shadow-sm transition-transform duration-300 group-hover:rotate-12"
                 width="48"
                 height="48"
@@ -214,7 +214,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
               <div className="flex items-center gap-2 mb-4">
                  <img 
                    src="/assets/img/logo.png" 
-                   alt="DevOpsism" 
+                   alt="Naval Thakur" 
                    className="w-8 h-8 rounded-full" 
                    width="32"
                    height="32"

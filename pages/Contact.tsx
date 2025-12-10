@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Mail, MapPin, Send, CheckCircle, Loader2, AlertCircle } from 'lucide-react';
 import Section from '../components/Section';
+import SEO from '../components/SEO';
 
 const Contact: React.FC = () => {
   // PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL HERE
@@ -52,6 +53,10 @@ const Contact: React.FC = () => {
 
   return (
     <>
+      <SEO 
+        title="Contact Naval Thakur | Book a Workshop or Consultation"
+        description="Get in touch for speaking engagements, workshops, mentorship, or consulting inquiries."
+      />
       <div className="bg-primary text-white py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Get in Touch</h1>

@@ -2,10 +2,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Bot, Sparkles, Database, Lock } from 'lucide-react';
 import Section from '../components/Section';
+import SEO from '../components/SEO';
 
 const GenAI: React.FC = () => {
   return (
     <>
+      <SEO 
+        title="GenAI Operations (LLMOps) & Strategy | AI Governance"
+        description="Operationalize Generative AI. LLM security, cost governance, RAG architecture, and AI Agents for enterprise adoption."
+      />
       <div className="bg-primary text-white py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">GenAI & Ops</h1>

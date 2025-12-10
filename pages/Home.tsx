@@ -3,19 +3,43 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, ShieldCheck, TrendingUp, BrainCircuit, CheckCircle2, Terminal, Users, Lightbulb, Layers, GraduationCap, FileText, MessageSquare } from 'lucide-react';
 import Section from '../components/Section';
 import NewsletterSignup from '../components/NewsletterSignup';
+import SEO from '../components/SEO';
 import { FEATURED_ARTICLES, RECENT_TALKS } from '../constants';
 
 const Home: React.FC = () => {
+  // Tech-focused images for the articles section
+  const ARTICLE_IMAGES = [
+    "1607799276041-8054e2dc6981", // Coding/DevOps (Computer screen)
+    "1555949963-ff9fe0c870eb", // SecOps (Code/Binary/Matrix style)
+    "1551288049-bebda4e38f71", // FinOps (Data/Analytics/Charts)
+  ];
+
   return (
     <>
+      <SEO 
+        title="Naval Thakur | DevOps, FinOps & GenAI Transformation Expert"
+        description="Expert consultant in DevSecOps, FinOps, GenAI, and System Architecture. Helping enterprises build resilient, cost-effective, and secure cloud ecosystems."
+      />
       {/* Hero Section */}
-      <div className="relative bg-slate-900 text-white pt-24 pb-24 md:pt-32 md:pb-32 overflow-hidden">
+      <div className="relative bg-slate-900 text-white pt-24 pb-24 md:pt-32 md:pb-32 overflow-hidden min-h-[500px] flex items-center">
         {/* Background Image & Overlay */}
         <div className="absolute inset-0 z-0">
           <img 
-            src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop" 
-            alt="Background" 
+            src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=60&auto=format&w=1920&fit=crop"
+            srcSet="
+              https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=60&auto=format&w=640&fit=crop 640w,
+              https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=60&auto=format&w=768&fit=crop 768w,
+              https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=60&auto=format&w=1024&fit=crop 1024w,
+              https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=60&auto=format&w=1280&fit=crop 1280w,
+              https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=60&auto=format&w=1536&fit=crop 1536w,
+              https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=60&auto=format&w=1920&fit=crop 1920w,
+              https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=60&auto=format&w=2560&fit=crop 2560w
+            "
+            sizes="100vw"
+            alt="Abstract digital technology background representing global connectivity and cloud infrastructure" 
             className="w-full h-full object-cover opacity-70"
+            fetchPriority="high"
+            loading="eager"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/60 to-slate-950/30"></div>
         </div>
@@ -36,17 +60,16 @@ const Home: React.FC = () => {
                 Empowering enterprises with 18+ years of expertise in DevSecOps, SRE, CloudOps, and AIOps leadership. Bridging the gap between technology, operations, and business value.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <Link to="/contact" className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-bold rounded-md text-primary bg-secondary hover:bg-secondary-hover transition-all shadow-lg hover:shadow-secondary/25">
+                <Link to="/contact" className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-bold rounded-md text-primary bg-secondary hover:bg-secondary-hover transition-all shadow-lg hover:shadow-secondary/25" aria-label="Book a talk or workshop with Naval">
                   Book a Talk / Workshop
                 </Link>
-                <Link to="/devops" className="inline-flex items-center justify-center px-6 py-3 border border-white/30 bg-white/10 backdrop-blur-sm text-base font-medium rounded-md text-white hover:bg-white/20 transition-all">
+                <Link to="/devops" className="inline-flex items-center justify-center px-6 py-3 border border-white/30 bg-white/10 backdrop-blur-sm text-base font-medium rounded-md text-white hover:bg-white/20 transition-all" aria-label="Explore DevOps expertise">
                   Explore Expertise
                 </Link>
               </div>
             </div>
             <div className="md:w-1/2 flex justify-center">
               <div className="relative">
-                <div className="absolute inset-0 bg-secondary rounded-full blur-2xl opacity-20"></div>
                 <img
                   src="/assets/img/profile.png?v=1"
                   onError={(e) => {
@@ -65,8 +88,8 @@ const Home: React.FC = () => {
                        target.src = "https://ui-avatars.com/api/?name=Naval+Thakur&background=00f1d4&color=271789&size=512";
                     }
                   }}
-                  alt="Naval Thakur"
-                  className="relative w-64 h-64 md:w-80 md:h-80 rounded-full border-4 border-slate-800/50 shadow-2xl transition-all duration-500 hover:scale-105 bg-slate-800 object-cover"
+                  alt="Naval Thakur - DevOps and FinOps Coach"
+                  className="w-64 h-64 md:w-80 md:h-80 object-cover"
                   width="320"
                   height="320"
                   loading="eager"
@@ -207,10 +230,14 @@ const Home: React.FC = () => {
                <div className="bg-slate-50 dark:bg-slate-800 rounded-xl overflow-hidden border border-slate-100 dark:border-slate-700">
                  <div className="h-48 bg-slate-200 dark:bg-slate-700 w-full object-cover relative">
                     <img 
-                      src={`https://picsum.photos/seed/${idx + 50}/600/400`}
-                      srcSet={`https://picsum.photos/seed/${idx + 50}/400/267 400w, https://picsum.photos/seed/${idx + 50}/600/400 600w, https://picsum.photos/seed/${idx + 50}/800/533 800w`}
+                      src={`https://images.unsplash.com/photo-${ARTICLE_IMAGES[idx % ARTICLE_IMAGES.length]}?q=80&w=600&auto=format&fit=crop`}
+                      srcSet={`
+                        https://images.unsplash.com/photo-${ARTICLE_IMAGES[idx % ARTICLE_IMAGES.length]}?q=80&w=400&auto=format&fit=crop 400w,
+                        https://images.unsplash.com/photo-${ARTICLE_IMAGES[idx % ARTICLE_IMAGES.length]}?q=80&w=600&auto=format&fit=crop 600w,
+                        https://images.unsplash.com/photo-${ARTICLE_IMAGES[idx % ARTICLE_IMAGES.length]}?q=80&w=800&auto=format&fit=crop 800w
+                      `}
                       sizes="(max-width: 768px) 100vw, (min-width: 768px) 33vw"
-                      alt="Article thumbnail" 
+                      alt={article.title} 
                       className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity"
                       loading="lazy"
                       width="600"

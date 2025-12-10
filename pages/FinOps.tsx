@@ -3,11 +3,16 @@ import { Link } from 'react-router-dom';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import { PieChart, Pie, Cell } from 'recharts';
 import Section from '../components/Section';
+import SEO from '../components/SEO';
 import { FINOPS_DATA } from '../constants';
 
 const FinOps: React.FC = () => {
   return (
     <>
+      <SEO 
+        title="FinOps & Cloud Cost Optimization | Reduce Cloud Spend"
+        description="Maximize business value from cloud. Cost visibility, forecasting, and rate optimization strategies for AWS, Azure, and GCP."
+      />
       <div className="bg-primary text-white py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">FinOps & Cost Optimization</h1>

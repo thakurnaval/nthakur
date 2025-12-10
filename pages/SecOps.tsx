@@ -2,10 +2,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Shield, Lock, AlertTriangle, Eye } from 'lucide-react';
 import Section from '../components/Section';
+import SEO from '../components/SEO';
 
 const SecOps: React.FC = () => {
   return (
     <>
+      <SEO 
+        title="SecOps & DevSecOps Implementation | Security by Design"
+        description="Shift left with DevSecOps. Automated security scanning, threat modeling, and cloud security governance to protect your infrastructure."
+      />
       <div className="bg-primary text-white py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">SecOps & DevSecOps</h1>

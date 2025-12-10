@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Section from '../components/Section';
+import SEO from '../components/SEO';
 import { Award, Briefcase, Globe, Linkedin, Twitter, Github, Youtube, GraduationCap, Calendar, MapPin, Building2, ChevronDown, ChevronUp } from 'lucide-react';
 
 interface CollapsibleSectionProps {
@@ -275,8 +276,34 @@ const About: React.FC = () => {
     }
   ];
 
+  // Person Schema for SEO
+  const personSchema = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Naval Thakur",
+    "url": "https://nthakur.com",
+    "image": "https://nthakur.com/assets/img/profile.png",
+    "sameAs": [
+      "https://www.linkedin.com/in/navalthakur",
+      "https://x.com/nthakur_dot_com",
+      "https://github.com/thakurnaval",
+      "https://www.youtube.com/channel/UCNFBR2tvSzgZr481iyNaI7A"
+    ],
+    "jobTitle": "Practice Manager",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "SLB"
+    },
+    "description": "Technologist & Transformation Coach specializing in DevSecOps, FinOps, and GenAI."
+  };
+
   return (
     <>
+      <SEO 
+        title="About Naval Thakur | Technology Transformation Leader"
+        description="18+ years of experience in DevSecOps, Cloud Computing, and Engineering Leadership. Resume, certifications, and professional journey."
+        structuredData={personSchema}
+      />
       <div className="bg-primary text-white py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">About Naval</h1>

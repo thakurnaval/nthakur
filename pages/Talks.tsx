@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Mic2, Download } from 'lucide-react';
 import Section from '../components/Section';
+import SEO from '../components/SEO';
 import { RECENT_TALKS } from '../constants';
 
 const Talks: React.FC = () => {
@@ -61,6 +62,10 @@ Email: contact@nthakur.com
 
   return (
     <>
+      <SEO 
+        title="Talks & Webinars | Naval Thakur"
+        description="Keynote speaker on DevOps culture, Cloud Native Security, and FinOps strategies. Watch recent talks and download speaker kit."
+      />
       <div className="bg-primary text-white py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Talks & Webinars</h1>

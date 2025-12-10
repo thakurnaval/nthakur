@@ -1,5 +1,6 @@
 import React from 'react';
 import Section from './Section';
+import SEO from './SEO';
 
 interface SimplePageProps {
   title: string;
@@ -8,8 +9,13 @@ interface SimplePageProps {
 }
 
 const SimplePage: React.FC<SimplePageProps> = ({ title, subtitle, children }) => {
+  // Construct SEO title and description from page props
+  const seoTitle = `${title} | Naval Thakur`;
+  const seoDesc = subtitle.length > 150 ? `${subtitle.substring(0, 150)}...` : subtitle;
+
   return (
     <>
+      <SEO title={seoTitle} description={seoDesc} />
       <div className="bg-primary text-white py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">{title}</h1>

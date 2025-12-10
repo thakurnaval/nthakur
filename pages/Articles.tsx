@@ -2,11 +2,26 @@ import React from 'react';
 import { ArrowRight, Search } from 'lucide-react';
 import Section from '../components/Section';
 import NewsletterSignup from '../components/NewsletterSignup';
+import SEO from '../components/SEO';
 import { FEATURED_ARTICLES } from '../constants';
 
 const Articles: React.FC = () => {
+  // Pool of tech-themed images to cycle through
+  const TECH_IMAGES = [
+    "1607799276041-8054e2dc6981", // Screen/Code
+    "1550751827-4bd374c3f58b", // Cyberpunk city/Tech
+    "1551288049-bebda4e38f71", // Charts/Data
+    "1518770660439-4636190af475", // Chip/Circuit
+    "1526374965328-7f61d4dc18c5", // Matrix Code
+    "1451187580459-43490279c0fa", // Abstract Network
+  ];
+
   return (
     <>
+      <SEO 
+        title="Insights & Articles | DevOps, FinOps, GenAI Blog"
+        description="Deep dives into technology, leadership, and the future of ops. Articles on DevSecOps culture, cloud cost optimization, and AI governance."
+      />
       <div className="bg-primary text-white py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Insights & Resources</h1>
@@ -43,8 +58,12 @@ const Articles: React.FC = () => {
                 <div key={idx} className="flex flex-col bg-white dark:bg-slate-800 rounded-xl overflow-hidden border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-md transition-all group">
                   <div className="h-48 bg-slate-200 dark:bg-slate-700 relative overflow-hidden">
                      <img 
-                       src={`https://picsum.photos/seed/${idx + 100}/600/400`}
-                       srcSet={`https://picsum.photos/seed/${idx + 100}/400/267 400w, https://picsum.photos/seed/${idx + 100}/600/400 600w, https://picsum.photos/seed/${idx + 100}/800/533 800w`}
+                       src={`https://images.unsplash.com/photo-${TECH_IMAGES[idx % TECH_IMAGES.length]}?q=80&w=600&auto=format&fit=crop`}
+                       srcSet={`
+                        https://images.unsplash.com/photo-${TECH_IMAGES[idx % TECH_IMAGES.length]}?q=80&w=400&auto=format&fit=crop 400w, 
+                        https://images.unsplash.com/photo-${TECH_IMAGES[idx % TECH_IMAGES.length]}?q=80&w=600&auto=format&fit=crop 600w, 
+                        https://images.unsplash.com/photo-${TECH_IMAGES[idx % TECH_IMAGES.length]}?q=80&w=800&auto=format&fit=crop 800w
+                       `}
                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                        alt={article.title} 
                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"

@@ -2,10 +2,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Settings, RefreshCw, BarChart2, GitMerge } from 'lucide-react';
 import Section from '../components/Section';
+import SEO from '../components/SEO';
 
 const DevOps: React.FC = () => {
   return (
     <>
+      <SEO 
+        title="DevOps Transformation Services & Consulting | Naval Thakur"
+        description="Accelerate software delivery with CI/CD, SRE, and Platform Engineering. Expert DevOps maturity assessments, roadmap planning, and cultural transformation coaching."
+      />
       <div className="bg-primary text-white py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">DevOps Transformation</h1>

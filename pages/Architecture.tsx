@@ -2,10 +2,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Layers, Server, Network, Database, ArrowRight, Box } from 'lucide-react';
 import Section from '../components/Section';
+import SEO from '../components/SEO';
 
 const Architecture: React.FC = () => {
   return (
     <>
+      <SEO 
+        title="Cloud System Architecture & Design Patterns | Naval Thakur"
+        description="Scalable, resilient cloud-native system design. Microservices, event-driven architecture, and legacy modernization consulting."
+      />
       <div className="bg-primary text-white py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">System Architecture</h1>
