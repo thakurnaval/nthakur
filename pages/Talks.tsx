@@ -5,6 +5,60 @@ import Section from '../components/Section';
 import { RECENT_TALKS } from '../constants';
 
 const Talks: React.FC = () => {
+  const handleDownloadKit = () => {
+    // Construct the Speaker Kit content dynamically
+    const bio = `
+# Naval Thakur - Speaker Kit
+
+## Short Bio
+Naval Thakur is a seasoned technologist and transformation leader with over 18 years of experience helping enterprises scale their software delivery and operations. He specializes in DevSecOps, FinOps, and GenAI.
+
+## Social Links
+- LinkedIn: https://www.linkedin.com/in/navalthakur
+- Twitter/X: https://x.com/nthakur_dot_com
+- GitHub: https://github.com/thakurnaval
+- Website: https://nthakur.com
+
+## Signature Talks & Topics
+${RECENT_TALKS.concat([
+  {
+    title: "Cultural Transformation in DevOps",
+    description: "Moving beyond tools to address the human factor in technical change.",
+    tags: ["Culture", "Management"],
+    audience: "Leaders, HR",
+    duration: "45 min"
+  },
+  {
+    title: "Zero Trust Security for Cloud Native",
+    description: "Implementing strict identity and network policies in K8s environments.",
+    tags: ["SecOps", "Kubernetes"],
+    audience: "Security Engineers",
+    duration: "50 min"
+  }
+]).map(talk => `
+### ${talk.title}
+- **Abstract:** ${talk.description}
+- **Audience:** ${talk.audience}
+- **Duration:** ${talk.duration}
+- **Tags:** ${talk.tags.join(', ')}
+`).join('\n')}
+
+## Contact
+Email: contact@nthakur.com
+    `;
+
+    // Create a Blob and trigger download
+    const blob = new Blob([bio], { type: 'text/markdown' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'Naval_Thakur_Speaker_Kit.md';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <>
       <div className="bg-primary text-white py-20">
@@ -62,8 +116,23 @@ const Talks: React.FC = () => {
              <div className="bg-slate-50 dark:bg-slate-800 p-6 rounded-xl border border-slate-200 dark:border-slate-700 sticky top-24">
                <div className="w-24 h-24 mx-auto bg-slate-200 dark:bg-slate-700 rounded-full mb-4 overflow-hidden">
                  <img 
-                   src="https://picsum.photos/100/100?grayscale" 
-                   srcSet="https://picsum.photos/100/100?grayscale 1x, https://picsum.photos/200/200?grayscale 2x"
+                   src="/assets/img/profile.png?v=1"
+                   onError={(e) => {
+                    const target = e.currentTarget;
+                    const src = target.src;
+                    if (src.includes('ui-avatars.com')) return; // Stop loop
+
+                    // Fallback Chain: png -> jpg -> jpeg -> Profile.png -> Avatar
+                    if (src.includes('profile.png')) {
+                       target.src = "/assets/img/profile.jpg";
+                    } else if (src.endsWith('profile.jpg')) {
+                       target.src = "/assets/img/profile.jpeg";
+                    } else if (src.endsWith('profile.jpeg')) {
+                       target.src = "/assets/img/Profile.png"; // Try Capitalized
+                    } else {
+                       target.src = "https://ui-avatars.com/api/?name=Naval+Thakur&background=00f1d4&color=271789&size=512";
+                    }
+                   }}
                    alt="Speaker Profile" 
                    className="w-full h-full object-cover" 
                    width="100"
@@ -75,7 +144,10 @@ const Talks: React.FC = () => {
                  Naval is an engaging speaker who translates complex technical concepts into actionable business strategies.
                </p>
                
-               <button className="w-full flex items-center justify-center py-2 border border-slate-300 dark:border-slate-600 rounded text-slate-700 dark:text-slate-300 font-medium hover:bg-white dark:hover:bg-slate-700 hover:text-primary dark:hover:text-white transition-colors mb-4">
+               <button 
+                onClick={handleDownloadKit}
+                className="w-full flex items-center justify-center py-2 border border-slate-300 dark:border-slate-600 rounded text-slate-700 dark:text-slate-300 font-medium hover:bg-white dark:hover:bg-slate-700 hover:text-primary dark:hover:text-white transition-colors mb-4"
+               >
                  <Download size={16} className="mr-2" /> Download Speaker Kit
                </button>
                

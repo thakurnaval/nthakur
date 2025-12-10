@@ -12,16 +12,11 @@ const Home: React.FC = () => {
       <div className="relative bg-slate-900 text-white pt-24 pb-24 md:pt-32 md:pb-32 overflow-hidden">
         {/* Background Image & Overlay */}
         <div className="absolute inset-0 z-0">
-          {/* 
-            Placeholder image from Unsplash (Tech/Network theme). 
-            Replace 'src' with your local asset e.g., "/assets/img/hero-bg.jpg" 
-          */}
           <img 
             src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop" 
             alt="Background" 
             className="w-full h-full object-cover opacity-70"
           />
-          {/* Gradient overlay to ensure text readability while maintaining image visibility */}
           <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/60 to-slate-950/30"></div>
         </div>
 
@@ -52,13 +47,26 @@ const Home: React.FC = () => {
             <div className="md:w-1/2 flex justify-center">
               <div className="relative">
                 <div className="absolute inset-0 bg-secondary rounded-full blur-2xl opacity-20"></div>
-                {/* 
-                   Direct link to the file. Ensure file is in public/assets/img/profile.png
-                */}
                 <img
-                  src="/assets/img/profile.png"
+                  src="/assets/img/profile.png?v=1"
+                  onError={(e) => {
+                    const target = e.currentTarget;
+                    const src = target.src;
+                    if (src.includes('ui-avatars.com')) return; // Stop loop
+
+                    // Fallback Chain: png -> jpg -> jpeg -> Profile.png -> Avatar
+                    if (src.includes('profile.png')) {
+                       target.src = "/assets/img/profile.jpg";
+                    } else if (src.endsWith('profile.jpg')) {
+                       target.src = "/assets/img/profile.jpeg";
+                    } else if (src.endsWith('profile.jpeg')) {
+                       target.src = "/assets/img/Profile.png"; // Try Capitalized
+                    } else {
+                       target.src = "https://ui-avatars.com/api/?name=Naval+Thakur&background=00f1d4&color=271789&size=512";
+                    }
+                  }}
                   alt="Naval Thakur"
-                  className="relative w-64 h-64 md:w-80 md:h-80 rounded-full border-4 border-slate-800/50 shadow-2xl object-cover transition-all duration-500 hover:scale-105 bg-slate-800"
+                  className="relative w-64 h-64 md:w-80 md:h-80 rounded-full border-4 border-slate-800/50 shadow-2xl transition-all duration-500 hover:scale-105 bg-slate-800 object-cover"
                   width="320"
                   height="320"
                   loading="eager"
