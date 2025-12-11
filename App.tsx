@@ -80,16 +80,7 @@ const BookSummaries = lazy(() => import('./pages/explore/BookSummaries'));
 const Certifications = lazy(() => import('./pages/explore/Certifications'));
 const MentalModels = lazy(() => import('./pages/explore/MentalModels'));
 
-// Scroll to top component to handle navigation position
-const ScrollToTop = () => {
-  const { pathname } = React.useMemo(() => window.location, []);
-  
-  React.useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
-
-  return null;
-}
+// Scroll handling is managed by Layout.tsx using useLocation hook
 
 const App: React.FC = () => {
   return (
