@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import { PieChart, Pie, Cell } from 'recharts';
+import { TrendingDown, Target, Percent, DollarSign } from 'lucide-react';
 import Section from '../components/Section';
 import SEO from '../components/SEO';
 import { FINOPS_DATA } from '../constants';
@@ -71,6 +72,59 @@ const FinOps: React.FC = () => {
                    </Link>
                  ))}
               </div>
+            </div>
+
+            {/* KPI Section */}
+            <div>
+               <h2 className="text-2xl font-bold text-primary dark:text-white mb-4">Critical FinOps KPIs</h2>
+               <p className="text-slate-600 dark:text-slate-300 mb-6">
+                 To ensure your FinOps practice is delivering value, track these core metrics regularly.
+               </p>
+               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="bg-white dark:bg-slate-800 p-5 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col">
+                    <div className="flex items-center justify-between mb-4">
+                      <h3 className="font-bold text-slate-700 dark:text-slate-200">Cost Savings</h3>
+                      <div className="p-2 bg-green-100 dark:bg-green-900/30 rounded-full text-green-600 dark:text-green-400">
+                        <DollarSign size={20} />
+                      </div>
+                    </div>
+                    <div className="text-3xl font-bold text-primary dark:text-white mb-1">$125k</div>
+                    <p className="text-xs text-slate-500 dark:text-slate-400">Annualized savings realized</p>
+                  </div>
+
+                  <div className="bg-white dark:bg-slate-800 p-5 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col">
+                    <div className="flex items-center justify-between mb-4">
+                      <h3 className="font-bold text-slate-700 dark:text-slate-200">Unit Efficiency</h3>
+                      <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-full text-blue-600 dark:text-blue-400">
+                        <TrendingDown size={20} />
+                      </div>
+                    </div>
+                    <div className="text-3xl font-bold text-primary dark:text-white mb-1">$0.04</div>
+                    <p className="text-xs text-slate-500 dark:text-slate-400">Avg. cost per transaction</p>
+                  </div>
+
+                  <div className="bg-white dark:bg-slate-800 p-5 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col">
+                    <div className="flex items-center justify-between mb-4">
+                      <h3 className="font-bold text-slate-700 dark:text-slate-200">Budget Variance</h3>
+                      <div className="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-full text-purple-600 dark:text-purple-400">
+                        <Target size={20} />
+                      </div>
+                    </div>
+                    <div className="text-3xl font-bold text-primary dark:text-white mb-1">+2.4%</div>
+                    <p className="text-xs text-slate-500 dark:text-slate-400">Deviation from forecast</p>
+                  </div>
+
+                  <div className="bg-white dark:bg-slate-800 p-5 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col">
+                    <div className="flex items-center justify-between mb-4">
+                      <h3 className="font-bold text-slate-700 dark:text-slate-200">RI/SP Coverage</h3>
+                      <div className="p-2 bg-orange-100 dark:bg-orange-900/30 rounded-full text-orange-600 dark:text-orange-400">
+                        <Percent size={20} />
+                      </div>
+                    </div>
+                    <div className="text-3xl font-bold text-primary dark:text-white mb-1">84%</div>
+                    <p className="text-xs text-slate-500 dark:text-slate-400">Compute on commitment</p>
+                  </div>
+               </div>
             </div>
 
             <div>

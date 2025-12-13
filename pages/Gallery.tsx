@@ -4,16 +4,34 @@ import Section from '../components/Section';
 import SEO from '../components/SEO';
 
 const Gallery: React.FC = () => {
+  // You can now use 'src' for local images OR 'imgId' for Unsplash
   const images = [
     { id: 101, title: 'Keynote at DevOps World', location: 'San Francisco', imgId: '1544531586-fde5298cdd40' },
     { id: 102, title: 'Workshop Session', location: 'London', imgId: '1531482615713-2afd69097998' },
     { id: 103, title: 'Team Brainstorming', location: 'Bangalore', imgId: '1552664730-d307ca884978' },
+    // Example of how to add a local image:
+    // { id: 109, title: 'My Local Event', location: 'New York', src: '/assets/img/my-event.jpg' }, 
     { id: 104, title: 'Panel Discussion', location: 'Singapore', imgId: '1558403190-c7505d02f743' },
-    { id: 105, title: 'Cloud Summit', location: 'New York', imgId: '1515187029135-18ee286d815b' }, // Conference hall
-    { id: 106, title: 'Mentoring Session', location: 'Remote', imgId: '1551836022-d5d88e9218df' }, // Online call
-    { id: 107, title: 'Hackathon Judge', location: 'Berlin', imgId: '1504384308090-c54be385e8ff' }, // Hackathon
-    { id: 108, title: 'Community Meetup', location: 'Mumbai', imgId: '1528605248644-14dd04022da1' }, // Meetup
+    { id: 105, title: 'Cloud Summit', location: 'New York', imgId: '1515187029135-18ee286d815b' },
+    { id: 106, title: 'Mentoring Session', location: 'Remote', imgId: '1551836022-d5d88e9218df' },
+    { id: 107, title: 'Hackathon Judge', location: 'Berlin', imgId: '1504384308090-c54be385e8ff' },
+    { id: 108, title: 'Community Meetup', location: 'Mumbai', imgId: '1528605248644-14dd04022da1' },
   ];
+
+  const getImageUrl = (img: any, size: number) => {
+    if (img.src) return img.src; // Use local path if provided
+    // Fallback to Unsplash logic
+    return `https://images.unsplash.com/photo-${img.imgId}?q=80&w=${size}&auto=format&fit=crop`;
+  };
+
+  const getSrcSet = (img: any) => {
+    if (img.src) return undefined; // No srcset for local images unless you manually generate versions
+    return `
+      https://images.unsplash.com/photo-${img.imgId}?q=80&w=400&auto=format&fit=crop 400w,
+      https://images.unsplash.com/photo-${img.imgId}?q=80&w=800&auto=format&fit=crop 800w,
+      https://images.unsplash.com/photo-${img.imgId}?q=80&w=1200&auto=format&fit=crop 1200w
+    `;
+  };
 
   return (
     <>
@@ -35,12 +53,8 @@ const Gallery: React.FC = () => {
           {images.map((img, idx) => (
             <div key={idx} className="group relative overflow-hidden rounded-xl shadow-lg bg-slate-100 dark:bg-slate-800 aspect-[4/3]">
               <img
-                src={`https://images.unsplash.com/photo-${img.imgId}?q=80&w=800&auto=format&fit=crop`}
-                srcSet={`
-                  https://images.unsplash.com/photo-${img.imgId}?q=80&w=400&auto=format&fit=crop 400w,
-                  https://images.unsplash.com/photo-${img.imgId}?q=80&w=800&auto=format&fit=crop 800w,
-                  https://images.unsplash.com/photo-${img.imgId}?q=80&w=1200&auto=format&fit=crop 1200w
-                `}
+                src={getImageUrl(img, 800)}
+                srcSet={getSrcSet(img)}
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 alt={`${img.title} event in ${img.location}`}
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
