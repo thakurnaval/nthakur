@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Section from '../components/Section';
 import SEO from '../components/SEO';
-import { Award, Briefcase, Globe, Linkedin, Twitter, Github, Youtube, GraduationCap, Calendar, MapPin, Building2, ChevronDown, ChevronUp } from 'lucide-react';
+import { Award, Briefcase, Globe, Linkedin, Twitter, Github, Youtube, GraduationCap, Calendar, MapPin, Building2, ChevronDown, ChevronUp, Terminal, Layout, Users, Star, ChevronRight, CheckCircle2 } from 'lucide-react';
 
 interface CollapsibleSectionProps {
   title: string;
@@ -297,6 +297,15 @@ const About: React.FC = () => {
     "description": "Technologist & Transformation Coach specializing in DevSecOps, FinOps, and GenAI."
   };
 
+  const getRoleIcon = (title: string) => {
+    const t = title.toLowerCase();
+    if (t.includes('architect')) return Layout;
+    if (t.includes('manager') || t.includes('lead') || t.includes('head')) return Users;
+    if (t.includes('devops') || t.includes('engineer') || t.includes('developer')) return Terminal;
+    if (t.includes('star') || t.includes('champion')) return Star;
+    return Briefcase;
+  };
+
   return (
     <>
       <SEO 
@@ -396,45 +405,77 @@ const About: React.FC = () => {
 
              {/* Work Experience Collapsible */}
              <CollapsibleSection title="Work Experience" icon={Briefcase}>
-               <div className="space-y-10">
+               <div className="space-y-12">
                  {experience.map((companyData, idx) => (
-                   <div key={idx} className="relative border-l-2 border-slate-200 dark:border-slate-700 pl-8 ml-3 md:ml-4">
+                   <div key={idx} className="relative border-l-2 border-slate-200 dark:border-slate-700 pl-8 ml-3 md:ml-4 pb-2">
                       {/* Company Header */}
-                      <span className="absolute -left-[21px] top-0 flex items-center justify-center w-10 h-10 bg-white dark:bg-slate-900 border-2 border-secondary rounded-full">
+                      <span className="absolute -left-[21px] top-0 flex items-center justify-center w-10 h-10 bg-white dark:bg-slate-900 border-2 border-secondary rounded-full shadow-sm z-10">
                         <Building2 size={20} className="text-secondary" />
                       </span>
                       
-                      <div className="mb-6">
-                        <h4 className="text-2xl font-bold text-slate-900 dark:text-white">{companyData.company}</h4>
+                      <div className="mb-8">
+                        <h4 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-3">
+                          {companyData.company}
+                        </h4>
                         <span className="inline-block px-3 py-1 mt-2 text-xs font-bold text-primary dark:text-white bg-secondary/20 rounded-full">
                           {companyData.duration}
                         </span>
                       </div>
 
                       {/* Roles within company */}
-                      <div className="space-y-8">
-                        {companyData.roles.map((role, rIdx) => (
-                          <div key={rIdx} className="bg-slate-50 dark:bg-slate-900/50 rounded-lg p-6 border border-slate-100 dark:border-slate-800 hover:border-secondary/50 transition-colors">
-                             <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-4 gap-2">
-                               <div>
-                                 <h5 className="text-lg font-bold text-primary dark:text-secondary">{role.title}</h5>
-                                 {role.location && (
-                                   <div className="flex items-center text-xs text-slate-500 mt-1">
-                                     <MapPin size={12} className="mr-1" /> {role.location}
+                      <div className="space-y-6">
+                        {companyData.roles.map((role, rIdx) => {
+                          const RoleIcon = getRoleIcon(role.title);
+                          const isCurrent = role.date.includes('Present');
+                          
+                          return (
+                            <div 
+                              key={rIdx} 
+                              className={`group relative bg-white dark:bg-slate-900 rounded-lg p-6 border transition-all duration-300 ${
+                                isCurrent 
+                                  ? 'border-secondary shadow-md dark:shadow-secondary/5' 
+                                  : 'border-slate-200 dark:border-slate-800 hover:border-secondary/30'
+                              }`}
+                            >
+                               {/* Connector Line to Main Timeline (optional, for visual flow) */}
+                               <div className="absolute top-8 -left-[42px] w-6 h-[2px] bg-slate-200 dark:bg-slate-700 hidden md:block group-hover:bg-secondary transition-colors"></div>
+
+                               <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-4 gap-2">
+                                 <div className="flex items-start gap-3">
+                                   <div className={`p-2 rounded-lg shrink-0 mt-1 ${isCurrent ? 'bg-secondary/10 text-secondary' : 'bg-slate-100 dark:bg-slate-800 text-slate-500'}`}>
+                                      <RoleIcon size={20} />
                                    </div>
-                                 )}
+                                   <div>
+                                     <h5 className="text-lg font-bold text-slate-900 dark:text-white flex items-center flex-wrap gap-2">
+                                       {role.title}
+                                       {isCurrent && (
+                                         <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 border border-green-200 dark:border-green-800">
+                                           Current
+                                         </span>
+                                       )}
+                                     </h5>
+                                     {role.location && (
+                                       <div className="flex items-center text-xs text-slate-500 mt-1">
+                                         <MapPin size={12} className="mr-1" /> {role.location}
+                                       </div>
+                                     )}
+                                   </div>
+                                 </div>
+                                 <div className="flex items-center text-sm font-mono text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-800 px-3 py-1 rounded border border-slate-200 dark:border-slate-700 shrink-0 self-start ml-11 md:ml-0">
+                                   <Calendar size={14} className="mr-2" /> {role.date}
+                                 </div>
                                </div>
-                               <div className="flex items-center text-sm font-mono text-slate-600 dark:text-slate-400 bg-white dark:bg-slate-900 px-2 py-1 rounded border border-slate-200 dark:border-slate-700 shrink-0">
-                                 <Calendar size={12} className="mr-2" /> {role.date}
-                               </div>
-                             </div>
-                             <ul className="list-disc list-outside ml-4 space-y-2 text-sm text-slate-700 dark:text-slate-300">
-                               {role.desc.map((point, pIdx) => (
-                                 <li key={pIdx} className="leading-relaxed">{point}</li>
-                               ))}
-                             </ul>
-                          </div>
-                        ))}
+                               <ul className="space-y-2 ml-11">
+                                 {role.desc.map((point, pIdx) => (
+                                   <li key={pIdx} className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed flex items-start">
+                                     <span className="mt-1.5 mr-2.5 w-1.5 h-1.5 rounded-full bg-secondary shrink-0"></span>
+                                     <span>{point}</span>
+                                   </li>
+                                 ))}
+                               </ul>
+                            </div>
+                          );
+                        })}
                       </div>
                    </div>
                  ))}
@@ -466,7 +507,7 @@ const About: React.FC = () => {
                      <ul className="space-y-3">
                        {group.items.map((cert, i) => (
                          <li key={i} className="flex items-start text-sm text-slate-700 dark:text-slate-300 group">
-                           <Award className="w-4 h-4 text-slate-400 group-hover:text-secondary mr-2 mt-0.5 flex-shrink-0 transition-colors" />
+                           <CheckCircle2 className="w-4 h-4 text-slate-400 group-hover:text-secondary mr-2 mt-0.5 flex-shrink-0 transition-colors" />
                            <span className="leading-relaxed">{cert}</span>
                          </li>
                        ))}
