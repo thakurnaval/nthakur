@@ -12,7 +12,7 @@ const GenAIFundamentals: React.FC = () => {
         At its core, a Generative Pre-trained Transformer (GPT) is a prediction engine. Given a sequence of text (tokens), it predicts the most statistically likely next token.
       </p>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
         <div className="bg-white dark:bg-slate-800 p-6 rounded shadow-sm">
           <h3 className="font-bold text-primary dark:text-white mb-2">Tokens</h3>
           <p className="text-sm">The basic unit of text. 1,000 tokens is roughly 750 words. Models are billed and limited by token count.</p>
